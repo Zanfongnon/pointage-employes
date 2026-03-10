@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Pointage employés{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Pointage des employés</h1>
+    {% if session.get('user_id') %}
+      <nav>
+        <span>Connecté: {{ session.get('user_name') }}</span>
+        <a href="{{ url_for('index') }}">Accueil</a>
+        {% if session.get('is_admin') %}
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard admin</a>
+        <a href="{{ url_for('export_excel') }}">Export Excel</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Déconnexion</a>
+      </nav>
+    {% endif %}
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="messages">
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

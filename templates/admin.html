@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Tableau de bord administrateur</h2>
+<section class="stats-grid">
+  <div class="stat"><strong>{{ total_users }}</strong><span>Employés</span></div>
+  <div class="stat"><strong>{{ today_arrivals }}</strong><span>Arrivées aujourd'hui</span></div>
+  <div class="stat"><strong>{{ complete_days }}</strong><span>Journées complètes</span></div>
+</section>
+
+<section class="card">
+  <h3>Derniers pointages</h3>
+  <table>
+    <thead><tr><th>Employé</th><th>Date</th><th>Arrivée</th><th>Départ</th></tr></thead>
+    <tbody>
+      {% for row in recent %}
+      <tr>
+        <td>{{ row.name }}</td><td>{{ row.day }}</td><td>{{ row.arrival_time or '-' }}</td><td>{{ row.departure_time or '-' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">Aucune donnée.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
