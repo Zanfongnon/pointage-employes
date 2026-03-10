@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="actions">
+  <form action="{{ url_for('arrival') }}" method="post">
+    <button class="primary" type="submit">BONJOUR JE SUIS LA</button>
+  </form>
+  <form action="{{ url_for('departure') }}" method="post">
+    <button class="danger" type="submit">AU REVOIR</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Liste des pointages</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Employé</th>
+        <th>Date</th>
+        <th>Arrivée</th>
+        <th>Départ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in presences %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.day }}</td>
+        <td>{{ p.arrival_time or '-' }}</td>
+        <td>{{ p.departure_time or '-' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">Aucun pointage pour le moment.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
